@@ -42,7 +42,7 @@ def get_estimate_performance(real_sequence, estimated_sequence):
     #count = np.count_nonzero(bin_array)
     return count
 
-def plot_performance(accuracy_count):
+def plot_performance(accuracy_count, label):
     indices = np.array([i + 1 for i in range(len(accuracy_count))])
     accuracy_count = np.divide(accuracy_count, indices) * 100
     print(accuracy_count)
@@ -50,9 +50,12 @@ def plot_performance(accuracy_count):
     plt.ylabel('Cumulative Accuracy (%)')
     plt.xlim([0, len(accuracy_count)])
     plt.ylim([0, 100])
-    plt.plot(indices, accuracy_count)
-    plt.show()
+    plt.plot(indices, accuracy_count, label=label)
+    #plt.show()
 
+def show_plot():
+    plt.legend(loc='best')
+    plt.show()
 
 def __main__():
     seq = generate_sequence()
@@ -61,7 +64,9 @@ def __main__():
 
     count_array = get_estimate_performance(seq, est_seq)
     count_random_array = get_estimate_performance(seq, rand_seq)
-    plot_performance(count_array)
+    plot_performance(count_array, 'All Zeros')
+    plot_performance(count_random_array, 'Random')
+    show_plot()
 
 __main__()
 
